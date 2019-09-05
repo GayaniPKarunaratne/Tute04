@@ -59,7 +59,7 @@ public class DBhelper extends SQLiteOpenHelper {
         SQLiteDatabase db = getReadableDatabase();
         String[] projection = {UserMaster.User._ID,UserMaster.User.COLUMN_NAME_USERNAME,UserMaster.User.Column_NAME_PASSWORD};
 
-        String sortOrder = UserMaster.User.COLUMN_NAME_USERNAME+ " DESC";
+        String sortOrder = UserMaster.User.COLUMN_NAME_USERNAME;
 
         Cursor values = db.query(UserMaster.User.TABLE_NAME,projection,null,null,null,null,sortOrder);
 
@@ -72,6 +72,13 @@ public class DBhelper extends SQLiteOpenHelper {
 
         }
         return users;
+    }
+
+
+    public void delete(String username){
+        SQLiteDatabase db = getReadableDatabase();
+        String Selection = UserMaster.User.COLUMN_NAME_USERNAME + "LIKE ?";
+
     }
 }
 
