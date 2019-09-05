@@ -31,6 +31,16 @@ public class MainActivity extends AppCompatActivity {
         data = findViewById(R.id.data);
         db = new DBhelper(this);
 
+        data.setText("");
+        int count = 1;
+
+        ArrayList<Users> u = db.readAllInfor();
+        for ( Users user : u ) {
+            data.append( count  + " " + user.getUname() + "\t\t\t" + user.getPassword() + "\n"  );
+            count++;
+        }
+
+
     }
 
     public void addInfro(View view){
@@ -46,6 +56,8 @@ public class MainActivity extends AppCompatActivity {
         else{
             Toast.makeText(getApplicationContext(),"Erro in user adding",Toast.LENGTH_LONG).show();
         }
+        displayInfo(view);
+
     }
 
     public void displayInfo(View view){
@@ -58,7 +70,21 @@ public class MainActivity extends AppCompatActivity {
             count++;
         }
 
+    }
 
+    public void deleteUser(View view){
+        userName = txt_username.getText().toString();
+        db.deleteuser( userName );
+        displayInfo(view);
+
+
+    }
+
+    public void update( View view){
+        userName = txt_username.getText().toString();
+        password = txt_password.getText().toString();
+        db.userUpdate( userName , password );
+        displayInfo(view);
     }
 
 }

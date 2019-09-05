@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -75,9 +76,25 @@ public class DBhelper extends SQLiteOpenHelper {
     }
 
 
-    public void delete(String username){
+    public void deleteuser(String username){
         SQLiteDatabase db = getReadableDatabase();
-        String Selection = UserMaster.User.COLUMN_NAME_USERNAME + "LIKE ?";
+        String Selection = UserMaster.User.COLUMN_NAME_USERNAME + " LIKE ?";
+        String[] SelectionArgs = { username };
+
+        db.delete(UserMaster.User.TABLE_NAME , Selection , SelectionArgs );
+    }
+
+    public void userUpdate(String username , String password ){
+        SQLiteDatabase db  = getReadableDatabase();
+
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(UserMaster.User.Column_NAME_PASSWORD , password );
+
+        String Selection = UserMaster.User.COLUMN_NAME_USERNAME + " Like ? ";
+        Log.i("DB" , Selection  );
+        String[] SelectionArgs = { username };
+
+        db.update(UserMaster.User.TABLE_NAME ,contentValues , Selection , SelectionArgs);
 
     }
 }
