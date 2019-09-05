@@ -7,9 +7,11 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import Database.DBhelper;
+import Model.Users;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -48,14 +50,13 @@ public class MainActivity extends AppCompatActivity {
 
     public void displayInfo(View view){
         data.setText("");
-        String x = "";
-        List<String> userNames = db.readAllInfor();
-        for ( String us : userNames) {
-            x += us.toString();
-            x += " \n ";
+        int count = 1;
 
+        ArrayList<Users> u = db.readAllInfor();
+        for ( Users user : u ) {
+            data.append( count  + " " + user.getUname() + "\t\t\t" + user.getPassword() + "\n"  );
+            count++;
         }
-        data.setText(x);
 
 
     }

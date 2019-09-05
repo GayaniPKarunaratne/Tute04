@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
 
+import Model.Users;
+
 public class DBhelper extends SQLiteOpenHelper {
 
     public static final String DB_NAME = "userdata.db";
@@ -53,7 +55,7 @@ public class DBhelper extends SQLiteOpenHelper {
         }
     }
 
-    public List readAllInfor() {
+    public ArrayList<Users> readAllInfor() {
         SQLiteDatabase db = getReadableDatabase();
         String[] projection = {UserMaster.User._ID,UserMaster.User.COLUMN_NAME_USERNAME,UserMaster.User.Column_NAME_PASSWORD};
 
@@ -61,17 +63,15 @@ public class DBhelper extends SQLiteOpenHelper {
 
         Cursor values = db.query(UserMaster.User.TABLE_NAME,projection,null,null,null,null,sortOrder);
 
-        List usersNameList = new ArrayList();
-        List passwordList = new ArrayList();
+       ArrayList<Users> users = new ArrayList<Users>();
 
         while (values.moveToNext()){
             String userName = values.getString(values.getColumnIndexOrThrow(UserMaster.User.COLUMN_NAME_USERNAME));
             String password = values.getString(values.getColumnIndexOrThrow(UserMaster.User.Column_NAME_PASSWORD));
+            users.add( new Users(userName , password) );
 
-            usersNameList.add(userName);
-            passwordList.add(password);
         }
-        return usersNameList;
+        return users;
     }
 }
 
