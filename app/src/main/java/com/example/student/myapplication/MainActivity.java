@@ -4,13 +4,17 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.List;
 
 import Database.DBhelper;
 
 public class MainActivity extends AppCompatActivity {
 
     EditText txt_username, txt_password;
+    TextView data;
     DBhelper db;
     private String userName;
     private String password;
@@ -22,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
 
         txt_username = findViewById(R.id.UserName);
         txt_password = findViewById(R.id.Pwd);
+        data = findViewById(R.id.data);
         db = new DBhelper(this);
 
     }
@@ -39,6 +44,20 @@ public class MainActivity extends AppCompatActivity {
         else{
             Toast.makeText(getApplicationContext(),"Erro in user adding",Toast.LENGTH_LONG).show();
         }
+    }
+
+    public void displayInfo(View view){
+        data.setText("");
+        String x = "";
+        List<String> userNames = db.readAllInfor();
+        for ( String us : userNames) {
+            x += us.toString();
+            x += " \n ";
+
+        }
+        data.setText(x);
+
+
     }
 
 }
