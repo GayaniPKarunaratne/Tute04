@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
 
         ArrayList<Users> u = db.readAllInfor();
         for ( Users user : u ) {
-            data.append( count  + " " + user.getUname() + "\t\t\t" + user.getPassword() + "\n"  );
+            data.append( count  + " " + user.getUname() + "\t\t" + user.getPassword() + "\n"  );
             count++;
         }
 
